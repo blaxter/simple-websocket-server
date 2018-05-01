@@ -220,10 +220,10 @@ class WebSocket(object):
               self.frag_buffer = None
 
           elif self.opcode == PING:
-              self._sendMessage(False, PONG, self.data)
+              self.handlePing()
 
           elif self.opcode == PONG:
-              pass
+              self.handlePong()
 
           else:
               if self.frag_start is True:
@@ -237,6 +237,11 @@ class WebSocket(object):
 
               self.handleMessage()
 
+   def handlePong(self):
+       pass
+
+   def handlePing(self):
+       self._sendMessage(False, PONG, self.data)
 
    def _handleData(self):
       # do the HTTP header and handshake
